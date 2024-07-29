@@ -10,6 +10,6 @@ public interface ICategoryService {
     ICategory insert(ICategory category) throws Exception;
     Boolean delete(Long id) throws Exception;
     ICategory update(Long id, ICategory category) throws Exception;
-    List<ICategory> findByAllNameContains(SearchCategoryDto dto);
+    List<ICategory> findAllByNameContains(SearchCategoryDto dto);
     int countAllByNameContains(SearchCategoryDto searchCategoryDto);
 }

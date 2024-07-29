@@ -1,4 +1,4 @@
-package com.sbmavenweb.mybatisapp.category;
+package com.sbmavenweb.mybatisapp;
 
 
 import lombok.RequiredArgsConstructor;

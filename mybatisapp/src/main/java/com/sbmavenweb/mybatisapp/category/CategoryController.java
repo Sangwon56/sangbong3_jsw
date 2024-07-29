@@ -103,7 +103,7 @@ public class CategoryController {
             }
             SearchCategoryDto searchCategoryDto = SearchCategoryDto.builder()
                     .name(name).page(1).build();
-            List<ICategory> result = this.categoryService.findByAllNameContains(searchCategoryDto);
+            List<ICategory> result = this.categoryService.findAllByNameContains(searchCategoryDto);
             if ( result == null || result.size() <= 0 ) {
                 return ResponseEntity.notFound().build();
             }

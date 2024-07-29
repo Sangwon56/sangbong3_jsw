@@ -87,7 +87,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public List<ICategory> findByAllNameContains(SearchCategoryDto dto) {
+    public List<ICategory> findAllByNameContains(SearchCategoryDto dto) {
         if ( dto == null ) {
             //return List.of();
             return new ArrayList<>();
