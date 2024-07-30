@@ -17,7 +17,7 @@ public class CategoryWebController {
 
     @GetMapping("")
     public String indexHome() {
-        return "index";
+        return "index"; // resources/templates/* 에서부터 index[.html] 찾는다.
     }
 
     @GetMapping("/oldhtml/category_old")    // 브라우저의 URL 주소
@@ -62,9 +62,9 @@ public class CategoryWebController {
     @PostMapping("/oldhtml/category_old_act")
     public String categoryOldInsert(@ModelAttribute CategoryDto dto, Model model) {
         try {
-            if (dto == null || dto.getName() == null || dto.getName().isEmpty()) {
+            if ( dto == null || dto.getName() == null || dto.getName().isEmpty() ) {
                 model.addAttribute("error_message", "이름이 비었습니다.");
-                return "error/error_bad";
+                return "error/error_bad";  // resources/templates 폴더안의 화면파일
             }
             this.categoryService.insert(dto);
         } catch (Exception ex) {
@@ -97,7 +97,7 @@ public class CategoryWebController {
     }
 
     @PostMapping("/oldhtml/category_old_update")
-    public String categoryOldUpdate(@ModelAttribute CategoryDto categoryDto, Model model) {
+    public String categoryOldUpdate(Model model, @ModelAttribute CategoryDto categoryDto) {
         try {
             if (categoryDto == null || categoryDto.getId() <= 0 || categoryDto.getName().isEmpty()) {
                 model.addAttribute("error_message", "id는 1보다 커야하고, name 이 있어야 합니다.");
@@ -118,7 +118,7 @@ public class CategoryWebController {
     }
 
     @GetMapping("/oldhtml/category_old_delete")
-    public String categoryDelete(@RequestParam Long id, Model model) {
+    public String categoryDelete(Model model, @RequestParam Long id) {
         try {
             if (id == null || id <= 0) {
                 model.addAttribute("error_message", "id는 1보다 커야 합니다.");
