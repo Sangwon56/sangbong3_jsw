@@ -1,5 +1,6 @@
 package com.gradle.mustache.category;
 
+import com.gradle.mustache.SearchAjaxDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface CategoryMybatisMapper {
 
     List<CategoryDto> findAll();
 
-    int countAllByNameContains(SearchCategoryDto searchCategoryDto);
-    List<CategoryDto> findAllByNameContains(SearchCategoryDto searchCategoryDto);
+    int countAllByNameContains(SearchAjaxDto searchAjaxDto);
+    List<CategoryDto> findAllByNameContains(SearchAjaxDto searchAjaxDto);
 }

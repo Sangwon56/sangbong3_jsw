@@ -1,4 +1,4 @@
-package com.gradle.mustache.category;
+package com.gradle.mustache;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,9 +13,11 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchCategoryDto {
+public class SearchAjaxDto {
     private String orderByWord;
     private String searchName;
+    private String sortColumn;
+    private String sortAscDsc;
     private Integer rowsOnePage;
     private Integer firstIndex;
     public Integer getFirstIndex() {
