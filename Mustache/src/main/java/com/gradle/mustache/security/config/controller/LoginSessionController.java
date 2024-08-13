@@ -1,4 +1,4 @@
-package com.gradle.mustache.security.controller;
+package com.gradle.mustache.security.config.controller;
 
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.member.IMemberService;

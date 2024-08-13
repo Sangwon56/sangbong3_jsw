@@ -1,4 +1,4 @@
-package com.gradle.mustache.security.controller;
+package com.gradle.mustache.security.config.controller;
 
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.member.IMemberService;
@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller

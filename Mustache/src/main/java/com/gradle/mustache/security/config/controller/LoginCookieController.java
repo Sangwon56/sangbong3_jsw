@@ -4,15 +4,11 @@ import com.gradle.mustache.member.IMemberService;
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.security.config.dto.SignUpRequest;
 import com.gradle.mustache.security.config.dto.LoginRequest;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +20,7 @@ public class LoginCookieController {
     @Autowired
     private IMemberService memberService;
 
-    @GetMapping("")
-    private String home() {
-        return "login/home";
-    }
-
-    @GetMapping("/signUp")
+    @GetMapping("/signup")
     private String viewSignUp() {
         return "login/signUp";
     }
