@@ -1,12 +1,10 @@
 package com.gradle.mustache.category;
 
-import com.gradle.mustache.category.CategoryDto;
-import com.gradle.mustache.SearchAjaxDto;
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import com.gradle.mustache.member.IMember;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

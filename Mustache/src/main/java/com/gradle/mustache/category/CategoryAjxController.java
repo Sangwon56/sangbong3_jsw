@@ -1,5 +1,8 @@
 package com.gradle.mustache.category;
 
+import com.gradle.mustache.member.IMember;
+import com.gradle.mustache.member.IMemberService;
+import com.gradle.mustache.member.MemberRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

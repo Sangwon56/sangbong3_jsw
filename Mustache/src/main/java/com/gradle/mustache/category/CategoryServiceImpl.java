@@ -1,6 +1,6 @@
 package com.gradle.mustache.category;
 
-import com.gradle.mustache.SearchAjaxDto;
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

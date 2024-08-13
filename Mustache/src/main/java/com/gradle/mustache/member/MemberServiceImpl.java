@@ -1,6 +1,6 @@
 package com.gradle.mustache.member;
 
-import com.gradle.mustache.SearchAjaxDto;
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import com.gradle.mustache.security.config.dto.LoginRequest;
 import com.gradle.mustache.security.config.dto.SignUpRequest;
 import lombok.extern.slf4j.Slf4j;

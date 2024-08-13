@@ -1,7 +1,7 @@
 package com.gradle.mustache.category;
 
 import com.gradle.mustache.ICommonService;
-import com.gradle.mustache.SearchAjaxDto;
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 
 import java.util.List;
 

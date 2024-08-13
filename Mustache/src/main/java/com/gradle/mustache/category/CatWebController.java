@@ -1,6 +1,6 @@
 package com.gradle.mustache.category;
 
-import com.gradle.mustache.SearchAjaxDto;
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.member.MemberRole;
 import lombok.extern.slf4j.Slf4j;
