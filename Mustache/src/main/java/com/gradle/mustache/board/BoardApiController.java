@@ -165,12 +165,17 @@ public class BoardApiController {
     }
     
     @GetMapping("/like/{id}")
-    public ResponseEntity<String> addLikeQty(@PathVariable Long id) {
+    public ResponseEntity<String> addLikeQty(Model model, @PathVariable Long id) {
         try {
-            if (id == null || id <= 0) {
+            IMember loginUser = (IMember)model.getAttribute("loginUser");
+            if ( loginUser == null ) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            if ( id == null || id <= 0 ) {
                 return ResponseEntity.badRequest().build();
             }
-            this.boardService.addLikeQty(id);
+            CUDInfoDto cudInfoDto = new CUDInfoDto(loginUser);
+            this.boardService.addLikeQty(cudInfoDto, id);
             return ResponseEntity.ok("OK");
         } catch ( Exception ex ) {
             log.error(ex.toString());
