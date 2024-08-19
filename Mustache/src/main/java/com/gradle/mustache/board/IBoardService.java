@@ -9,6 +9,7 @@ import java.util.List;
 public interface IBoardService extends IServiceCRUD<BoardDto> {
     void addViewQty(Long id);
     void addLikeQty(CUDInfoDto cudInfoDto, Long id);
+    void subLikeQty(CUDInfoDto cudInfoDto, Long id);
 
     Integer countAllByNameContains(SearchAjaxDto searchAjaxDto);
     List<BoardDto> findAllByNameContains(SearchAjaxDto searchAjaxDto);
