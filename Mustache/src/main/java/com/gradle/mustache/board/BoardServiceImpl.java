@@ -1,7 +1,7 @@
 package com.gradle.mustache.board;
 
-import com.gradle.mustache.boardlike.BoardLikeDto;
-import com.gradle.mustache.boardlike.IBoardLikeMybatisMapper;
+import com.gradle.mustache.sblike.SbLikeDto;
+import com.gradle.mustache.sblike.ISbLikeMybatisMapper;
 import com.gradle.mustache.commons.dto.CUDInfoDto;
 import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class BoardServiceImpl implements IBoardService {
     private IBoardMybatisMapper boardMybatisMapper;
 
     @Autowired
-    private IBoardLikeMybatisMapper boardLikeMybatisMapper;
+    private ISbLikeMybatisMapper boardLikeMybatisMapper;
 
     @Override
     public void addViewQty(Long id) {
@@ -30,9 +30,9 @@ public class BoardServiceImpl implements IBoardService {
         if ( cudInfoDto == null || cudInfoDto.getLoginUser() == null || id == null || id <= 0 ) {
             return;
         }
-        BoardLikeDto boardLikeDto = BoardLikeDto.builder()
+        SbLikeDto boardLikeDto = SbLikeDto.builder()
                 .tbl("board")
-                .likeUserId(cudInfoDto.getLoginUser().getLoginId())
+                .nickname(cudInfoDto.getLoginUser().getNickname())
                 .boardId(id)
                 .build();
 
@@ -49,9 +49,9 @@ public class BoardServiceImpl implements IBoardService {
         if ( cudInfoDto == null || cudInfoDto.getLoginUser() == null || id == null || id <= 0 ) {
             return;
         }
-        BoardLikeDto boardLikeDto = BoardLikeDto.builder()
+        SbLikeDto boardLikeDto = SbLikeDto.builder()
                 .tbl("board")
-                .likeUserId(cudInfoDto.getLoginUser().getLoginId())
+                .nickname(cudInfoDto.getLoginUser().getNickname())
                 .boardId(id)
                 .build();
 

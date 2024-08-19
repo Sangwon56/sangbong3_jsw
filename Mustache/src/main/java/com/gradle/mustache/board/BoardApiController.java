@@ -1,7 +1,7 @@
 package com.gradle.mustache.board;
 
-import com.gradle.mustache.boardlike.BoardLikeDto;
-import com.gradle.mustache.boardlike.IBoardLikeService;
+import com.gradle.mustache.sblike.SbLikeDto;
+import com.gradle.mustache.sblike.ISbLikeService;
 import com.gradle.mustache.commons.dto.CUDInfoDto;
 import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import com.gradle.mustache.member.IMember;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class BoardApiController {
     private IBoardService boardService;
 
     @Autowired
-    private IBoardLikeService boardLikeService;
+    private ISbLikeService boardLikeService;
 
     @Autowired
     private ISbFileService sbFileService;
@@ -239,13 +238,13 @@ public class BoardApiController {
         if ( result == null ) {
             return null;
         }
-        BoardLikeDto boardLikeDto = BoardLikeDto.builder()
+        SbLikeDto boardLikeDto = SbLikeDto.builder()
                 .tbl("board")
-                .likeUserId(loginUser.getLoginId())
+                .nickname(loginUser.getNickname())
                 .boardId(id)
                 .build();
         Integer likeCount = this.boardLikeService.countByTableUserBoard(boardLikeDto);
-        result.setDelFlag(likeCount.toString());
+        result.setDeleteDt(likeCount.toString());
         return result;
     }
 
