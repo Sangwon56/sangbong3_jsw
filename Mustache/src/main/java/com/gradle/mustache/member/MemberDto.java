@@ -1,18 +1,24 @@
 package com.gradle.mustache.member;
 
-import lombok.Builder;
+import com.gradle.mustache.commons.dto.BaseDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-public class MemberDto implements IMember {
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MemberDto extends BaseDto implements IMember {
     private Long id;
     private String name;
+    private String nickname;
     private String loginId;
     private String password;
     private String email;
     private String role;
-
+    private Boolean active;
 }

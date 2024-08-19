@@ -75,6 +75,12 @@ public class MemberServiceImpl implements IMemberService{
     }
 
     @Override
+    public IMember findByNickname(String nickname) {
+        IMember find = this.memberMybatisMapper.findByNickname(nickname);
+        return find;
+    }
+
+    @Override
     public List<IMember> findAllByLoginIdContains(SearchAjaxDto dto) {
         List<IMember> list = this.memberMybatisMapper.findAllByLoginIdContains(dto);
         return list;
@@ -83,6 +89,6 @@ public class MemberServiceImpl implements IMemberService{
     @Override
     public int countAllByLoginIdContains(SearchAjaxDto dto) {
         int count = this.memberMybatisMapper.countAllByLoginIdContains(dto);
-        return 0;
+        return count;
     }
 }

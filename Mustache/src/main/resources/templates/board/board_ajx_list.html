@@ -328,6 +328,7 @@
             let html = "";
             $("#fileList").children().remove();
             for ( const file of list ) {
+                let id = file.id;
                 let tbl = file.tbl;
                 let name = file.name;
                 let uniqName = file.uniqName;
@@ -335,6 +336,7 @@
                 let size = file.length;
                 html += "<div onclick=\"$.downloadFile('" + tbl + "', '" + name + "'" +
                     ", '" + uniqName + "', '" + fileType + "')\">" + name + ", " + size + "</div>";
+                html += "<div onclick='$.downloadFileId(" + id + ")'>※</div>";
             }
             $("#fileList").append(html);
         }
@@ -347,6 +349,13 @@
             document.location.href = "/api/v1/board/file/" + tbl + "/" + name + "/" + uniqName + "/" + fileTpye;
         }
 
+        $.downloadFileId = function (id) {
+            if (id === undefined || id <= 0) {
+                return;
+            }
+            document.location.href = "/api/v1/board/fileId/" + id;
+
+        }
         $.makePageUI = function (paramTotal, paramPage) {
             // paramTotal : 전체 데이터 수
             // paramPage : 현재 페이지 번호
