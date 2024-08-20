@@ -1,5 +1,9 @@
 package com.gradle.mustache.board;
 
+import com.gradle.mustache.filecntl.FileCtrlService;
+import com.gradle.mustache.sbfile.ISbFileMybatisMapper;
+import com.gradle.mustache.sbfile.ISbFileService;
+import com.gradle.mustache.sbfile.SbFileDto;
 import com.gradle.mustache.sblike.SbLikeDto;
 import com.gradle.mustache.sblike.ISbLikeMybatisMapper;
 import com.gradle.mustache.commons.dto.CUDInfoDto;
@@ -15,7 +19,13 @@ public class BoardServiceImpl implements IBoardService {
     private IBoardMybatisMapper boardMybatisMapper;
 
     @Autowired
-    private ISbLikeMybatisMapper boardLikeMybatisMapper;
+    private ISbLikeMybatisMapper sbLikeMybatisMapper;
+
+    @Autowired
+    private ISbFileMybatisMapper sbFileMybatisMapper;
+
+    @Autowired
+    private FileCtrlService fileCtrlService;
 
     @Override
     public void addViewQty(Long id) {
@@ -36,11 +46,11 @@ public class BoardServiceImpl implements IBoardService {
                 .boardId(id)
                 .build();
 
-        Integer count = this.boardLikeMybatisMapper.countByTableUserBoard(boardLikeDto);
+        Integer count = this.sbLikeMybatisMapper.countByTableUserBoard(boardLikeDto);
         if ( count > 0 ) {
             return;
         }
-        this.boardLikeMybatisMapper.insert(boardLikeDto);
+        this.sbLikeMybatisMapper.insert(boardLikeDto);
         this.boardMybatisMapper.addLikeQty(id);
     }
 
@@ -55,11 +65,11 @@ public class BoardServiceImpl implements IBoardService {
                 .boardId(id)
                 .build();
 
-        Integer count = this.boardLikeMybatisMapper.countByTableUserBoard(boardLikeDto);
+        Integer count = this.sbLikeMybatisMapper.countByTableUserBoard(boardLikeDto);
         if ( count < 1 ) {
             return;
         }
-        this.boardLikeMybatisMapper.deleteByTableUserBoard(boardLikeDto);
+        this.sbLikeMybatisMapper.deleteByTableUserBoard(boardLikeDto);
         this.boardMybatisMapper.subLikeQty(id);
     }
 
@@ -129,6 +139,13 @@ public class BoardServiceImpl implements IBoardService {
         delete.copyFields(dto);
         info.setDeleteInfo(delete);
         this.boardMybatisMapper.updateDeleteFlag(delete);
+        SbFileDto search = SbFileDto.builder().tbl("board").boardId(delete.getId()).build();
+        List<SbFileDto> list = this.sbFileMybatisMapper.findAllByTblBoardId(search);
+        for ( SbFileDto sbFileDto : list ) {
+            sbFileDto.setDeleteFlag(true);
+            this.sbFileMybatisMapper.updateDeleteFlag(sbFileDto);
+            // this.fileCtrlService.deleteFile(sbFileDto.getTbl(), sbFileDto.getUniqName(), sbFileDto.getFileType());
+        }
         return true;
     }
 

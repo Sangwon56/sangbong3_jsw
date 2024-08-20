@@ -3,6 +3,7 @@ package com.gradle.mustache.category;
 import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.member.MemberRole;
+import com.gradle.mustache.security.config.SecurityConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class CatWebController {
         // @RequestParam int page, @RequestParam String searchName : HTTP Request Query String
         //  : url 주소에서 ?searchName=&page=값 변수의 값을 받는다. Request Query String
         try {
-            IMember loginUser = (IMember)model.getAttribute("loginUser");
+            IMember loginUser = (IMember)model.getAttribute(SecurityConfig.LOGINUSER);
             if ( loginUser == null ) {
                 // 로그인 사용자가 아니면 리턴
                 return "redirect:/";

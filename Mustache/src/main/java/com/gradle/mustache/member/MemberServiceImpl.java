@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class MemberServiceImpl implements IMemberService{
+public class MemberServiceImpl implements IMemberService {
     @Autowired
     private MemberMybatisMapper memberMybatisMapper;
 
