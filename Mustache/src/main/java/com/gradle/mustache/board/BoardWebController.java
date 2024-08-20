@@ -3,6 +3,7 @@ package com.gradle.mustache.board;
 import com.gradle.mustache.commons.dto.CUDInfoDto;
 import com.gradle.mustache.member.IMember;
 import com.gradle.mustache.member.MemberDto;
+import com.gradle.mustache.security.config.SecurityConfig;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class BoardWebController {
             HttpServletResponse response,
             HttpSession session
     ) {
-        IMember loginUser = (IMember)model.getAttribute("loginUser");
+        IMember loginUser = (IMember)model.getAttribute(SecurityConfig.LOGINUSER);
         if ( loginUser == null ) {
             return "redirect:/";
         }
