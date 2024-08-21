@@ -41,7 +41,7 @@ public class BoardServiceImpl implements IBoardService {
             return;
         }
         SbLikeDto boardLikeDto = SbLikeDto.builder()
-                .tbl("board")
+                .tbl(new BoardDto().getTbl())
                 .nickname(cudInfoDto.getLoginUser().getNickname())
                 .boardId(id)
                 .build();
@@ -60,7 +60,7 @@ public class BoardServiceImpl implements IBoardService {
             return;
         }
         SbLikeDto boardLikeDto = SbLikeDto.builder()
-                .tbl("board")
+                .tbl(new BoardDto().getTbl())
                 .nickname(cudInfoDto.getLoginUser().getNickname())
                 .boardId(id)
                 .build();
@@ -93,6 +93,9 @@ public class BoardServiceImpl implements IBoardService {
         if ( searchAjaxDto.getRowsOnePage() == null ) {
             // 한 페이지당 보여주는 행의 갯수
             searchAjaxDto.setRowsOnePage(10);
+        }
+        if ( searchAjaxDto.getPage() <= 0 ) {
+            searchAjaxDto.setPage(1);
         }
         List<BoardDto> list = this.boardMybatisMapper.findAllByNameContains(searchAjaxDto);
         return list;
@@ -139,7 +142,7 @@ public class BoardServiceImpl implements IBoardService {
         delete.copyFields(dto);
         info.setDeleteInfo(delete);
         this.boardMybatisMapper.updateDeleteFlag(delete);
-        SbFileDto search = SbFileDto.builder().tbl("board").boardId(delete.getId()).build();
+        SbFileDto search = SbFileDto.builder().tbl(dto.getTbl()).boardId(delete.getId()).build();
         List<SbFileDto> list = this.sbFileMybatisMapper.findAllByTblBoardId(search);
         for ( SbFileDto sbFileDto : list ) {
             sbFileDto.setDeleteFlag(true);

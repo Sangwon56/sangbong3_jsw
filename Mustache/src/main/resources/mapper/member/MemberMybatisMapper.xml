@@ -110,7 +110,13 @@
           AND deleteFlag = false
     </select>
 
-    <select id="countAllByLoginIdContains" parameterType="SearchAjaxDto" resultType="int">
+    <update id="changePassword" parameterType="MemberDto">
+        UPDATE member_tbl
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <select id="countAllByLoginIdContains" parameterType="SearchAjaxDto" resultType="Integer">
         SELECT count(*)
         FROM member_tbl
         WHERE loginId like CONCAT('%',#{searchName},'%')
@@ -137,5 +143,53 @@
           AND deleteFlag = false
         ORDER BY ${orderByWord}
         LIMIT #{rowsOnePage} OFFSET #{firstIndex}
+    </select>
+
+    <select id="findAll" resultType="MemberDto">
+        SELECT id
+             , name
+             , nickname
+             , loginId
+             , email
+             , role
+             , active
+             , createDt
+             , createId
+             , updateDt
+             , updateId
+             , deleteDt
+             , deleteId
+             , deleteFlag
+        FROM member_tbl
+            AND deleteFlag = false
+    </select>
+
+    <select id="countAllByNameContains" parameterType="SearchAjaxDto" resultType="Integer">
+        SELECT count(*)
+        FROM member_tbl
+        WHERE name like CONCAT('%',#{searchName},'%')
+          AND deleteFlag = false
+    </select>
+
+    <select id="findAllByNameContains" parameterType="SearchAjaxDto" resultType="MemberDto">
+        SELECT id
+             , name
+             , nickname
+             , loginId
+             , email
+             , role
+             , active
+             , createDt
+             , createId
+             , updateDt
+             , updateId
+             , deleteDt
+             , deleteId
+             , deleteFlag
+        FROM member_tbl
+        WHERE name like CONCAT('%',#{searchName},'%')
+            AND deleteFlag = false
+        ORDER BY ${orderByWord}
+            LIMIT #{rowsOnePage} OFFSET #{firstIndex}
     </select>
 </mapper>
