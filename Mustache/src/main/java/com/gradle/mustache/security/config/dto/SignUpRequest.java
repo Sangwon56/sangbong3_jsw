@@ -1,6 +1,6 @@
 package com.gradle.mustache.security.config.dto;
 
-import com.softagape.mustacheajax.member.IMember;
+import com.gradle.mustache.member.IMember;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

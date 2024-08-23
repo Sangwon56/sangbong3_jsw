@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class MemberWebRestController implements ICommonRestController<MemberDto>
     private IMemberService memberService;
 
     @PostMapping
-    public ResponseEntity<ResponseDto> insert(Model model, @RequestBody MemberDto dto) {
+    public ResponseEntity<ResponseDto> insert(Model model, @Validated @RequestBody MemberDto dto) {
         try {
             if ( dto == null ) {
                 return makeResponseEntity(HttpStatus.BAD_REQUEST, ResponseCode.R000051, "입력 매개변수 에러", null);
@@ -48,7 +49,7 @@ public class MemberWebRestController implements ICommonRestController<MemberDto>
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ResponseDto> update(Model model, @PathVariable Long id, @RequestBody MemberDto dto) {
+    public ResponseEntity<ResponseDto> update(Model model, @PathVariable Long id, @Validated @RequestBody MemberDto dto) {
         try {
             if ( id == null || dto == null || !id.equals(dto.getId()) ) {
                 return makeResponseEntity(HttpStatus.BAD_REQUEST, ResponseCode.R000051, "입력 매개변수 에러", null);
@@ -76,7 +77,7 @@ public class MemberWebRestController implements ICommonRestController<MemberDto>
     }
 
     @DeleteMapping("/deleteFlag/{id}")
-    public ResponseEntity<ResponseDto> updateDeleteFlag(Model model, @PathVariable Long id, @RequestBody MemberDto dto) {
+    public ResponseEntity<ResponseDto> updateDeleteFlag(Model model, @PathVariable Long id, @Validated @RequestBody MemberDto dto) {
         try {
             if ( id == null || dto == null || !id.equals(dto.getId()) || dto.getDeleteFlag() == null ) {
                 return makeResponseEntity(HttpStatus.BAD_REQUEST, ResponseCode.R000051, "입력 매개변수 에러", null);
