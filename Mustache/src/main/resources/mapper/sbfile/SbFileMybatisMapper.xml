@@ -4,24 +4,27 @@
 <mapper namespace="com.gradle.mustache.sbfile.ISbFileMybatisMapper">
 
     <insert id="insert" parameterType="SbFileDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO sbfile_tbl ( name
-                              , ord
-                              , fileType
-                              , uniqName
-                              , length
-                              , description
-                              , tbl
-                              , boardId
-                              , deleteFlag)
-        VALUES ( #{name}
-               , #{ord}
-               , #{fileType}
-               , #{uniqName}
-               , #{length}
-               , #{description}
-               , #{tbl}
-               , #{boardId}
-               , 0)
+        INSERT INTO sbfile_tbl
+            ( name
+            , ord
+            , fileType
+            , uniqName
+            , length
+            , description
+            , tbl
+            , boardId
+            , deleteFlag
+            )
+        VALUES
+            ( #{name}
+            , #{ord}
+            , #{fileType}
+            , #{uniqName}
+            , #{length}
+            , #{description}
+            , #{tbl}
+            , #{boardId}
+	    , 0)
     </insert>
 
     <update id="updateDeleteFlag" parameterType="SbFileDto">

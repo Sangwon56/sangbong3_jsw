@@ -1,5 +1,6 @@
-package com.gradle.mustache.sblike;
+package com.gradle.mustache.board.comment;
 
+import com.gradle.mustache.commons.dto.SearchAjaxDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SbLikeDto implements ISbLike {
-    private Long id;
-    private String tbl;
+public class SearchBoardCommentDto extends SearchAjaxDto {
+    private String boardId;
+    private String commentTbl;
     private Long createId;
-    private Long boardId;
+    private Long commentId;
 }

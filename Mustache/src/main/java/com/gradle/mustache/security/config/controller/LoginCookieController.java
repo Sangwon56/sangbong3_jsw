@@ -1,11 +1,11 @@
 package com.gradle.mustache.security.config.controller;
 
-import com.softagape.mustacheajax.commons.dto.CUDInfoDto;
-import com.softagape.mustacheajax.member.IMember;
-import com.softagape.mustacheajax.member.IMemberService;
-import com.softagape.mustacheajax.security.config.SecurityConfig;
-import com.softagape.mustacheajax.security.dto.LoginRequest;
-import com.softagape.mustacheajax.security.dto.SignUpRequest;
+import com.gradle.mustache.commons.dto.CUDInfoDto;
+import com.gradle.mustache.member.IMember;
+import com.gradle.mustache.member.IMemberService;
+import com.gradle.mustache.security.config.SecurityConfig;
+import com.gradle.mustache.security.config.dto.LoginRequest;
+import com.gradle.mustache.security.config.dto.SignUpRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

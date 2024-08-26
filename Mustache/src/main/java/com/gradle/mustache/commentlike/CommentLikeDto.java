@@ -1,4 +1,4 @@
-package com.gradle.mustache.sblike;
+package com.gradle.mustache.commentlike;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SbLikeDto implements ISbLike {
+public class CommentLikeDto implements ICommentLike {
     private Long id;
-    private String tbl;
+    private String commentTbl;
     private Long createId;
-    private Long boardId;
+    private Long commentId;
 }

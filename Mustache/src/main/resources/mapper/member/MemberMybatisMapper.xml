@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gradle.mustache.member.MemberMybatisMapper">
+<mapper namespace="com.gradle.mustache.member.IMemberMybatisMapper">
 
     <insert id="insert" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO member_tbl ( name
-                               , nickname
-                               , loginId
-                               , password
-                               , email
-                               , role
-                               , active
-                               , createDt
-                               , createId )
-        VALUES ( #{name}
-               , #{nickname}
-               , #{loginId}
-               , #{password}
-               , #{email}
-               , #{role}
-               , #{active}
-               , #{createDt}
-               , #{createId} )
+        INSERT INTO member_tbl
+            (name
+            , nickname
+            , loginId
+            , password
+            , email
+            , role
+            , active
+            , createDt
+            , createId)
+        VALUES
+            (#{name}
+            , #{nickname}
+            , #{loginId}
+            , #{password}
+            , #{email}
+            , #{role}
+            , #{active}
+            , #{createDt}
+            , #{createId})
     </insert>
 
     <update id="update" parameterType="MemberDto">
