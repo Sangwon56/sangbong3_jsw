@@ -962,6 +962,11 @@
                     <button class="modalCloseButton">Close</button>
                 </div>
             </div>
+            <fieldset>
+                <label for="comment"></label> <input type="text" id="comment" name="comment" maxlength="100"/>
+                <button id="addComment" onclick="$.addComment();">댓글추가</button>
+            </fieldset>
+            <div id="commentList"></div>
         </div>
         <div class="modal_bg" style="display: none"></div>
     </div>
