@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.softagape.mustacheajax.board.comment.IBoardCommentMybatisMapper">
+<mapper namespace="com.gradle.mustache.board.comment.IBoardCommentMybatisMapper">
 
     <insert id="insert" parameterType="BoardCommentDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO board_comment_tbl ( comment

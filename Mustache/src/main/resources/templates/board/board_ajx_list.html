@@ -319,6 +319,8 @@
             } else {
                 $("#heartIcon").attr("src", "/svg/heartOn.svg");
             }
+            $("#createName").text(item.createName);
+            $("#createDt").text(item.createDt);
             $("#showViewModalButton").trigger("click");
         }
 
@@ -925,6 +927,12 @@
         <div id="modal_box_view" style="display: none">
             <h2>Board Info</h2>
             <fieldset>
+                <div id="createName">
+
+                </div>
+                <div id="createDt">
+
+                </div>
                 <div>
                     <label for="id2">ID</label> <input id="id2" name="id2" readonly type="text" value=""/>
                 </div>
@@ -962,6 +970,11 @@
                     <button class="modalCloseButton">Close</button>
                 </div>
             </div>
+            <fieldset>
+                <label for="comment"></label> <input type="text" id="comment" name="comment" maxlength="100"/>
+                <button id="addComment" onclick="$.addComment();">댓글추가</button>
+            </fieldset>
+            <div id="commentList"></div>
         </div>
         <div class="modal_bg" style="display: none"></div>
     </div>

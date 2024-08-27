@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <style>
-        #menu {
-            position : absolute; left : 42%; top : 25%;
-            text-align: center;
-        }
-    </style>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/mazer/assets/compiled/css/app.css">
@@ -37,7 +31,6 @@
     </script>
 </head>
 <body>
-<div id="menu">
 <form id="form" name="form">
     <label for="id"></label><input type="hidden" id="id" name="id" value="{{categoryDto.id}}"/>
     <label for="name">이름</label><input type="text" id="name" name="name" value="{{categoryDto.name}}"/>
@@ -45,6 +38,5 @@
     <button onclick="goBack();">뒤로</button>
     <button onclick="categoryDelete();">삭제</button>
     <button onclick="categoryUpdate();">수정</button>
-</div>
 </body>
 </html>
