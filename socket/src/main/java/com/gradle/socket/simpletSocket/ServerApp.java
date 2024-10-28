@@ -1,8 +1,6 @@
 package com.gradle.socket.simpletSocket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,11 +16,31 @@ public class ServerApp {
         // 클라이언트와 연결된 소켓으로 읽거나 쓴다. 읽을 때는 동기 상태(블로킹)
         try{
             Socket acceptSocket = init();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
-            String msg = reader.readLine(); // 블로킹 상태
-            System.out.printf("%s%n", msg);
-            reader.close();
+            BufferedWriter socKetWriter = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()));
+            BufferedReader socketReader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
+            BufferedReader KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
+
+            while (true) {
+                String readMsg = socketReader.readLine(); // 블로킹 상태
+                System.out.printf("서버가 받은 메시지 : %s%n", readMsg);
+                if("exit".equalsIgnoreCase(readMsg)) {
+                    break;
+                }
+                System.out.print("서버에서 문자열 입력 : ");
+                String keyboardMsg =KeyboardReader.readLine();
+                socKetWriter.write(keyboardMsg);
+                socKetWriter.newLine();
+                socKetWriter.flush();
+                if("exit".equalsIgnoreCase(keyboardMsg)) {
+                    break;
+                }
+            }
+
+            KeyboardReader.close();
+            socketReader.close();
+            socKetWriter.close();
             acceptSocket.close();
+            serverSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
             System.out.println(ioE.toString());

@@ -1,8 +1,6 @@
 package com.gradle.socket.simpletSocket;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientApp {
@@ -19,12 +17,32 @@ public class ClientApp {
 
         try {
             Socket clientSocket = init();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            writer.write(String.format("클라이언트[%s] 접속 함", serverIp));
-            writer.newLine();
-            writer.flush();
-            System.out.println("서버에 문자열 전송");
-            writer.close();
+            BufferedWriter socKetWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            BufferedReader socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
+            socKetWriter.write(String.format("클라이언트[%s] 접속 함", serverIp));
+            socKetWriter.newLine();
+            socKetWriter.flush();
+
+            while (true) {
+                String readMsg = socketReader.readLine();
+                System.out.printf("서버에서 받은 문자열 : %s%n", readMsg);
+                if("exit".equalsIgnoreCase(readMsg)) {
+                    break;
+                }
+                System.out.print("클라이언트에서 문자열 입력 : ");
+                String keyboardMsg =KeyboardReader.readLine();
+                socKetWriter.write(keyboardMsg);
+                socKetWriter.newLine();
+                socKetWriter.flush();
+                if("exit".equalsIgnoreCase(keyboardMsg)) {
+                    break;
+                }
+            }
+
+            KeyboardReader.close();
+            socketReader.close();
+            socKetWriter.close();
             clientSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
