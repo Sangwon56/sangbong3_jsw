@@ -9,17 +9,20 @@ public class ClientApp {
     private final static String serverIp = "192.168.0.20";
 
     public static void main(String[] args) {
-
+        Socket clientSocket = null;
+        BufferedWriter socKetWriter = null;
+        BufferedReader socketReader = null;
+        BufferedReader KeyboardReader = null;
         // 서버 소켓을 만든다. (IP주소, 포트번호) (clientSocket)
         // 클라이언트 소켓으로 서버에 접속 시도한다.
         // 서버와 연결된 클라이언트 소켓으로 읽거나 쓴다.
         // 읽을 때는 동기상태 (블로킹)
 
         try {
-            Socket clientSocket = init();
-            BufferedWriter socKetWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            BufferedReader socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            BufferedReader KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
+            clientSocket = init();
+            socKetWriter = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
             socKetWriter.write(String.format("클라이언트[%s] 접속 함", serverIp));
             socKetWriter.newLine();
             socKetWriter.flush();
@@ -39,11 +42,6 @@ public class ClientApp {
                     break;
                 }
             }
-
-            KeyboardReader.close();
-            socketReader.close();
-            socKetWriter.close();
-            clientSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
             System.out.println(ioE.toString());
@@ -51,7 +49,23 @@ public class ClientApp {
             System.out.println("Exception");
             System.out.println(ex.toString());
         } finally {
-            System.out.println("클라이언트 프로그램 종료");
+            try {
+                if (KeyboardReader != null) {
+                    KeyboardReader.close();
+                }
+                if (socketReader != null) {
+                    socketReader.close();
+                }
+                if (socKetWriter != null) {
+                    socKetWriter.close();
+                }
+                if (clientSocket != null) {
+                    clientSocket.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("서버 프로그램 종료");
         }
     }
 

@@ -9,38 +9,36 @@ public class ServerApp {
 
     private static ServerSocket serverSocket = null;
     public static void main(String[] args) {
+        Socket acceptSocket = null;
+        BufferedWriter socKetWriter = null;
+        BufferedReader socketReader = null;
+        BufferedReader KeyboardReader = null;
         // 서버 소켓을 만든다.(listenSocket)
         // 포트를 지정하고 bind, listen 으로 클라이언트 접속 할 때까지 대기한다.(블로킹 상태) 동기상태
         // 클라이언트 접속이 되면 클라이언트와 통신할 소켓을 만든다.
         // 클라이언트로부터 접속이 되면 클라이언트와 연결할 소켓을 리턴한다.(AcceptSocket)
         // 클라이언트와 연결된 소켓으로 읽거나 쓴다. 읽을 때는 동기 상태(블로킹)
-        try{
-            Socket acceptSocket = init();
-            BufferedWriter socKetWriter = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()));
-            BufferedReader socketReader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
-            BufferedReader KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            acceptSocket = init();
+            socKetWriter = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()));
+            socketReader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
+            KeyboardReader = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
                 String readMsg = socketReader.readLine(); // 블로킹 상태
                 System.out.printf("서버가 받은 메시지 : %s%n", readMsg);
-                if("exit".equalsIgnoreCase(readMsg)) {
+                if ("exit".equalsIgnoreCase(readMsg)) {
                     break;
                 }
                 System.out.print("서버에서 문자열 입력 : ");
-                String keyboardMsg =KeyboardReader.readLine();
+                String keyboardMsg = KeyboardReader.readLine();
                 socKetWriter.write(keyboardMsg);
                 socKetWriter.newLine();
                 socKetWriter.flush();
-                if("exit".equalsIgnoreCase(keyboardMsg)) {
+                if ("exit".equalsIgnoreCase(keyboardMsg)) {
                     break;
                 }
             }
-
-            KeyboardReader.close();
-            socketReader.close();
-            socKetWriter.close();
-            acceptSocket.close();
-            serverSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
             System.out.println(ioE.toString());
@@ -48,10 +46,28 @@ public class ServerApp {
             System.out.println("Exception");
             System.out.println(ex.toString());
         } finally {
+            try {
+                if (KeyboardReader != null) {
+                    KeyboardReader.close();
+                }
+                if (socketReader != null) {
+                    socketReader.close();
+                }
+                if (socKetWriter != null) {
+                    socKetWriter.close();
+                }
+                if (acceptSocket != null) {
+                    acceptSocket.close();
+                }
+                if (serverSocket != null) {
+                    serverSocket.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println("서버 프로그램 종료");
         }
     }
-
     public static Socket init() throws IOException {
         serverSocket = new ServerSocket(port);
         System.out.println("서버 소켓으로 클라이언트 접속 대기 중");
