@@ -7,7 +7,8 @@ import java.net.Socket;
 
 public class ClientApp {
     private final static int port = 33333; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
-    private final static String serverIp = "127.0.0.1";
+    // private final static String serverIp = "172.0.0.1";
+    private final static String serverIp = "192.168.0.20";
 
     public static void main(String[] args) {
 
@@ -20,6 +21,7 @@ public class ClientApp {
             Socket clientSocket = init();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
             writer.write(String.format("클라이언트[%s] 접속 함", serverIp));
+            writer.newLine();
             writer.flush();
             System.out.println("서버에 문자열 전송");
             writer.close();

@@ -19,7 +19,7 @@ public class ServerApp {
         try{
             Socket acceptSocket = init();
             BufferedReader reader = new BufferedReader(new InputStreamReader(acceptSocket.getInputStream()));
-            String msg = reader.readLine();
+            String msg = reader.readLine(); // 블로킹 상태
             System.out.printf("%s%n", msg);
             reader.close();
             acceptSocket.close();
