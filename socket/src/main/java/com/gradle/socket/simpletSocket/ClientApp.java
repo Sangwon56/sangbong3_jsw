@@ -1,7 +1,9 @@
 package com.gradle.socket.simpletSocket;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ClientApp {
     private final static int port = 33333; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
@@ -14,11 +16,10 @@ public class ClientApp {
     private BufferedReader keyboardReader = null;
 
     public static void main(String[] args) {
-
-        // 서버 소켓을 만든다. (IP주소, 포트번호) (clientSocket)
-        // 클라이언트 소켓으로 서버에 접속 시도한다.
+        // 클라이언트 소켓을 만든다. (IP주소, 포트번호) (clientSocket)
+        // 클라이언트 소켓으로 서버에 접속 시도 한다.
         // 서버와 연결된 클라이언트 소켓으로 읽거나 쓴다.
-        // 읽을 때는 동기상태 (블로킹)
+        // 읽을때는 동기상태 (블로킹)
 
         ClientApp ca = new ClientApp();
         ca.doNetworking();
@@ -37,9 +38,27 @@ public class ClientApp {
         keyboardReader = new BufferedReader(
                 new InputStreamReader(System.in)
         );
-        socketWriter.write(String.format("클라이언트[%s] 에서 문자열 전송 함", serverIp));
+        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
         socketWriter.newLine();
         socketWriter.flush();
+    }
+    
+    private String getMyIp() {
+        InetAddress local = null;
+        try {
+            local = InetAddress.getLocalHost();
+        }
+        catch ( UnknownHostException e ) {
+            e.printStackTrace();
+        }
+        if( local == null ) {
+            return "0.0.0.0";
+        }
+        else {
+            String ip = local.getHostAddress();
+            return ip;
+        }
+
     }
 
     public void doNetworking() {
