@@ -70,6 +70,9 @@ public class MultiClientApp {
 
             while (true) {
                 String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
+                if (keyboardMsg.isEmpty()) {
+                    continue;
+                }
                 this.socketWriter.write(keyboardMsg);
                 this.socketWriter.newLine();
                 this.socketWriter.flush();

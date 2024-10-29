@@ -98,6 +98,9 @@ public class MultiServerApp {
 
             while(true) {
                 String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
+                if (keyboardMsg.isEmpty()) {
+                    continue;
+                }
                 this.writeClientList(keyboardMsg, null);
                 if( "exit".equalsIgnoreCase(keyboardMsg) ) {
                     break;
@@ -125,7 +128,7 @@ public class MultiServerApp {
         }
         for (MultiClientSocket socket : this.multiClientSocketList) {
             if (mcs == null) {
-                socket.write(message);
+                socket.write(msg);
             } else if (mcs.hashCode() != socket.hashCode()) {
                 socket.write(msg);
             }
@@ -153,6 +156,7 @@ public class MultiServerApp {
                     Socket accept = serverSocket.accept();
                     MultiClientSocket mcs = new MultiClientSocket(accept);
                     multiClientSocketList.add(mcs);
+                    System.out.printf("클라이언트[%s] 연결, [%d]\n", mcs.ipAddr, multiClientSocketList.size());
 
                     ReadClientSocketThread rcst = new ReadClientSocketThread(mcs);
                     rcst.start();
@@ -178,9 +182,9 @@ public class MultiServerApp {
                     String readMsg = this.myClientSocket.socketReader.readLine(); // 블로킹 상태
                     System.out.printf("%s : %s%n", this.myClientSocket.ipAddr, readMsg);
                     if( readMsg == null || "exit".equalsIgnoreCase(readMsg) ) {
-                        System.out.println("클라이언트 접속 해제");
                         this.myClientSocket.close();
                         multiClientSocketList.remove(this.myClientSocket);
+                        System.out.printf("클라이언트 접속 해제, [%d]\n", multiClientSocketList.size());
                         break;
                     } else {
                         writeClientList(readMsg, this.myClientSocket);
