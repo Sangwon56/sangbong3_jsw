@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 public class MultiClientApp {
     private final static int port = 33334; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
     // private final static String serverIp = "172.0.0.1";
-    private final static String serverIp = "192.168.0.20";
+    private final static String serverIp = "192.168.0.10";
 
     private Socket clientSocket = null;
     private BufferedWriter socketWriter = null;
@@ -38,9 +38,9 @@ public class MultiClientApp {
         keyboardReader = new BufferedReader(
                 new InputStreamReader(System.in)
         );
-        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
-        socketWriter.newLine();
-        socketWriter.flush();
+//        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
+//        socketWriter.newLine();
+//        socketWriter.flush();
     }
     
     private String getMyIp() {
@@ -69,12 +69,6 @@ public class MultiClientApp {
             rsst.start();
 
             while (true) {
-//                String readMsg = socketReader.readLine(); // 블로킹 상태
-//                System.out.printf("서버 에서 받은 문자열 : %s%n", readMsg);
-//                if( "exit".equalsIgnoreCase(readMsg) ) {
-//                    break;
-//                }
-                System.out.print("클라이언트에서 문자열 입력 : ");
                 String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
                 this.socketWriter.write(keyboardMsg);
                 this.socketWriter.newLine();
@@ -122,8 +116,8 @@ public class MultiClientApp {
             while(true) {
                 try {
                     String readMsg = socketReader.readLine(); // 블로킹 상태
-                    System.out.printf("서버 에서 받은 문자열 : %s%n", readMsg);
-                    if ("exit".equalsIgnoreCase(readMsg)) {
+                    System.out.println(readMsg);
+                    if (readMsg == null || "Server : exit".equalsIgnoreCase(readMsg)) {
                         System.exit(-1);
                     }
                 } catch (IOException ex) {
