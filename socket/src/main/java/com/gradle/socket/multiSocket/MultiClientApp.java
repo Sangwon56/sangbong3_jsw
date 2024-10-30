@@ -131,3 +131,6 @@ public class MultiClientApp {
         }
     }
 }
+
+// javac -d . MultiClientApp.java
+// java -cp . com.softagape.multisocket.MultiClientApp

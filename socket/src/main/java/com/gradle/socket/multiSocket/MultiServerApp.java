@@ -39,7 +39,6 @@ public class MultiServerApp {
                     new InputStreamReader(this.acceptSocket.getInputStream())
             );
             this.ipAddr = this.acceptSocket.getInetAddress();
-            System.out.printf("클라이언트[%s] 연결 됨%n", this.ipAddr);
         }
 
         /**
@@ -182,8 +181,8 @@ public class MultiServerApp {
                     String readMsg = this.myClientSocket.socketReader.readLine(); // 블로킹 상태
                     System.out.printf("%s : %s%n", this.myClientSocket.ipAddr, readMsg);
                     if( readMsg == null || "exit".equalsIgnoreCase(readMsg) ) {
-                        this.myClientSocket.close();
                         multiClientSocketList.remove(this.myClientSocket);
+                        this.myClientSocket.close();
                         System.out.printf("클라이언트 접속 해제, [%d]\n", multiClientSocketList.size());
                         break;
                     } else {
@@ -191,7 +190,9 @@ public class MultiServerApp {
                     }
                 } catch (Exception ex) {
                     try {
+                        multiClientSocketList.remove(this.myClientSocket);
                         this.myClientSocket.close();
+                        System.out.printf("클라이언트 에러 해제, [%d]\n", multiClientSocketList.size());
                     } catch (IOException e) {
                         e.printStackTrace();
                     } finally {
@@ -202,3 +203,6 @@ public class MultiServerApp {
         }
     }
 }
+
+// javac -d . MultiServerApp.java
+// java -cp . com.softagape.multisocket.MultiServerApp
