@@ -205,4 +205,4 @@ public class MultiServerApp {
 }
 
 // javac -d . MultiServerApp.java
-// java -cp . com.softagape.multisocket.MultiServerApp
+// java -cp . com.gradle.socket.multisocket.MultiServerApp

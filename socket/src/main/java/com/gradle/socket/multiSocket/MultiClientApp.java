@@ -133,4 +133,4 @@ public class MultiClientApp {
 }
 
 // javac -d . MultiClientApp.java
-// java -cp . com.softagape.multisocket.MultiClientApp
+// java -cp . com.gradle.socket.multisocket.MultiClientApp
