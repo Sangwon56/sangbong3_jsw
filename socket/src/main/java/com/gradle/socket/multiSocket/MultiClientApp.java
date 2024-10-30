@@ -4,11 +4,12 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 public class MultiClientApp {
-    private final static int port = 33334; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
-    // private final static String serverIp = "172.0.0.1";
-    private final static String serverIp = "192.168.0.10";
+//    private final static int port = 33334; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
+//     private final static String serverIp = "172.0.0.1";
+//    private final static String serverIp = "192.168.0.10";
 
     private Socket clientSocket = null;
     private BufferedWriter socketWriter = null;
@@ -20,20 +21,26 @@ public class MultiClientApp {
         // 클라이언트 소켓으로 서버에 접속 시도 한다.
         // 서버와 연결된 클라이언트 소켓으로 읽거나 쓴다.
         // 읽을때는 동기상태 (블로킹)
+        if(args.length != 2){
+            System.out.println("에러 : 포트를 입력하세요");
+        } else {
+            String serverIp = args[0];
+            Integer port = Integer.parseInt(args[1]);
 
-        MultiClientApp ca = new MultiClientApp();
-        ca.doNetworking();
+            MultiClientApp ca = new MultiClientApp();
+            ca.doNetworking(serverIp, port);
+        }
     }
 
     public void init() throws IOException {
-        this.clientSocket = new Socket(serverIp, port);
+//        this.clientSocket = new Socket(serverIp, port);
         System.out.println("클라이언트 소켓 생성후 서버에 접속 성공");
 
         socketWriter = new BufferedWriter(
-                new OutputStreamWriter(clientSocket.getOutputStream())
+                new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8)
         );
         socketReader = new BufferedReader(
-                new InputStreamReader(clientSocket.getInputStream())
+                new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8)
         );
         keyboardReader = new BufferedReader(
                 new InputStreamReader(System.in)
@@ -61,8 +68,9 @@ public class MultiClientApp {
 
     }
 
-    public void doNetworking() {
+    public void doNetworking(String serverIp, Integer port) {
         try {
+            this.clientSocket = new Socket(serverIp, port);
             this.init();
 
             Thread rsst = new Thread(new ReadServerSocketThread());
@@ -133,4 +141,4 @@ public class MultiClientApp {
 }
 
 // javac -d . MultiClientApp.java
-// java -cp . com.gradle.socket.multisocket.MultiClientApp
+// java -cp . com.gradle.socket.multiSocket.MultiClientApp

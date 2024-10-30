@@ -4,11 +4,12 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MultiServerApp {
-    private final static int port = 33334; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
+//    private final static int port = 33334; // 0~65534, 0~9999 까지는 대부분 프로그램이 사용, 10000번 이상 사용하는게 좋다.
 
     public ServerSocket serverSocket = null;
     public BufferedReader keyboardReader = null;
@@ -33,10 +34,10 @@ public class MultiServerApp {
         public MultiClientSocket(Socket socket) throws IOException {
             this.acceptSocket = socket;
             this.socketWriter = new BufferedWriter(
-                    new OutputStreamWriter(this.acceptSocket.getOutputStream())
+                    new OutputStreamWriter(this.acceptSocket.getOutputStream(), StandardCharsets.UTF_8)
             );
             this.socketReader = new BufferedReader(
-                    new InputStreamReader(this.acceptSocket.getInputStream())
+                    new InputStreamReader(this.acceptSocket.getInputStream(), StandardCharsets.UTF_8)
             );
             this.ipAddr = this.acceptSocket.getInetAddress();
         }
@@ -74,11 +75,14 @@ public class MultiServerApp {
         // 포트를 지정하고 bind, listen 으로 클라이언트 접속 할때까지 대기한다. (블로킹 상태) 동기상태
         // 클라이언트 로부터 접속이 되면 클라이언트와 연결할 소켓을 리턴하다. (acceptSocket)
         // 클라이언트와 연결된 소켓으로 읽거나 쓴다. 읽을때는 동기상태 (블로킹)
-
-        MultiServerApp sa = new MultiServerApp();
-        sa.doNetworking();
+        if(args.length != 1) {
+            System.out.println("에러 : 포트를 입력하세요");
+        } else {
+            Integer port = Integer.parseInt(args[0]);
+            MultiServerApp sa = new MultiServerApp();
+            sa.doNetworking(port);
+        }
     }
-
     public void init() throws IOException {
         System.out.println("서버소켓으로 클라이언트 접속 대기 중");
         this.keyboardReader = new BufferedReader(
@@ -87,7 +91,7 @@ public class MultiServerApp {
         this.multiClientSocketList = new ArrayList<>();
     }
 
-    public void doNetworking() {
+    public void doNetworking(Integer port) {
         try {
             this.serverSocket = new ServerSocket(port);
             this.init();
@@ -205,4 +209,4 @@ public class MultiServerApp {
 }
 
 // javac -d . MultiServerApp.java
-// java -cp . com.gradle.socket.multisocket.MultiServerApp
+// java -cp . com.gradle.socket.multiSocket.MultiServerApp
