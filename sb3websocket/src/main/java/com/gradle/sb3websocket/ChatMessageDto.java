@@ -12,7 +12,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatMessageDto {
-    private String roodId;
+    public enum ChatMessageType {
+        ENTER,
+        MESSAGE,
+        OUT,
+    }
+    private ChatMessageType msgType;
+    private String roomId;
     private String writer;
     private String message;
 }
