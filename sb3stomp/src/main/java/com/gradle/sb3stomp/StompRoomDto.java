@@ -17,9 +17,5 @@ import java.util.List;
 public class StompRoomDto {
     private String roomName;
     private String roomId;
-    private final List<StompWebSocketSession> stompWebSocketSessions = new ArrayList<>();
-
-    public Integer getCount() {
-        return stompWebSocketSessions.size();
-    }
+    private Integer count;
 }

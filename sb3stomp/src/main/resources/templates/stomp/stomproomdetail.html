@@ -47,4 +47,36 @@
     }, function(error){
         console.log(error);
     });
+
+    $.sendMessage = () => {
+        let message = $("#message").val();
+        if (message == null || message === '') {
+            return;
+        }
+        socket.send("/pub/stomp/message", {}, JSON.stringify(
+            {
+                "msgType": "MESSAGE"
+                , "roomId": "{{StompRoomDto.roomId}}"
+                , "writer": "{{writer}}"
+                , "message": message
+            }
+        ));
+    }
+
+    $.outRoom = () => {
+        socket.send("/pub/stomp/message", {}, JSON.stringify(
+            {
+                "msgType": "OUT"
+                , "roomId": "{{StompRoomDto.roomId}}"
+                , "writer": "{{writer}}"
+                , "message": "퇴장"
+            }
+        ));
+        socket.disconnect();
+        document.location.href = "/stomp/list";
+    }
+
+    socket.onclose = function() {
+        $.outRoom();
+    };
 </script>
