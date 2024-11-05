@@ -76,7 +76,8 @@
         document.location.href = "/stomp/list";
     }
 
-    socket.onclose = function() {
+    // 브라우저 창 닫을때 자동 실행하는 이벤트
+    window.addEventListener("beforeunload", function(e) {
         $.outRoom();
-    };
+    });
 </script>
