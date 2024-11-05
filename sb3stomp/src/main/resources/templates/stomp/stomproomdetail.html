@@ -20,5 +20,31 @@
 </body>
 </html>
 
+<script src = "/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src = "/webjars/stomp-websocket/2.3.4/stomp.min.js"></script>
 <script>
+    let sockJS = new SockJS("/stompEnd")
+    let socket = Stomp.over(sockJS);
+    let messages = [];
+
+    socket.connect({}, function(data) {
+        console.log(data);
+        socket.subscribe("/sub/stomp/room/" + "{{StompRoomDto.roomId}}", function(message) {
+            let msgObj = JSON.parse(message.body);
+            let msgUl = $("#msgUl");
+            let liHtml = `<li><span>${msgObj.writer}</span> &nbsp; : &nbsp; <span>${msgObj.message}</span></li>`;
+            msgUl.append(liHtml);
+        });
+        socket.send("/pub/stomp/message", {}, JSON.stringify(
+            {
+                "msgType": "ENTER"
+                , "roomId": "{{StompRoomDto.roomId}}"
+                , "writer": "{{writer}}"
+                , "message": "입장"
+            }
+        ));
+        console.log('socket.send 완료');
+    }, function(error){
+        console.log(error);
+    });
 </script>

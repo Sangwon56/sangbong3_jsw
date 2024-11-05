@@ -47,7 +47,7 @@ public class StompRoomController {
             , @RequestParam String writer   // GET ? 와 &
 //            , @PathVariable String writer   // GET 주소
     ) {
-        model.addAttribute("stompRoomDto", this.stompRoomService.findByRoomId(roomId));
+        model.addAttribute("StompRoomDto", this.stompRoomService.findByRoomId(roomId));
         model.addAttribute("writer", writer);
         String url = String.format("%s:%d", request.getServerName(), request.getServerPort());
         model.addAttribute("hostUrl", url);
