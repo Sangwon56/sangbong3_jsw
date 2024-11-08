@@ -26,6 +26,7 @@ public class AllControllerAdvice {
             , "/admin"
             , "/user"
             , "/board"
+            , "/stomp"
     };
 
 
